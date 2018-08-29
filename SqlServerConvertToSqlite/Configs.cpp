@@ -20,7 +20,6 @@ bool Config::FromFile(const std::string& sFile)
 	if (sFile.empty())
 		return false;
 	char s[256];
-	// 获取文件大小
 	FILE* file = fopen(sFile.data(), "rt+");
 	if (file == NULL) return false;
 	fseek(file, 0, SEEK_END);
@@ -28,12 +27,10 @@ bool Config::FromFile(const std::string& sFile)
 	if (file_size <= 0)
 		return false;
 	fseek(file, 0, SEEK_SET);
-	// 从文件读取数据
 	char* buffer = new char[file_size];
 	fread(buffer, file_size, 1, file);
 	fclose(file);
 
-	// 初始化
 	bool b = FromString(buffer);
 	delete buffer;
 	buffer = NULL;
@@ -74,26 +71,3 @@ bool Config::ToFile(const std::string& sSaveFile)
 
 	return true;
 }
-
-
-#ifdef USING_TestCode
-class TestCode_Config {
-public:
-	TestCode_Config() {
-		Config config;
-		config.FromString("{}");
-		config.Set("test.base.savepath", "D:/test");
-
-		Json::Value v = config.Get("base.savepath", "");
-		std::string s = v.asString();
-		OutputDebugStringA(s.c_str());
-		std::string sJsonString;
-		sJsonString = config.ToString();
-		OutputDebugStringA(sJsonString.c_str());
-	}
-
-	~TestCode_Config() {
-
-	}
-} TestCode_Config_c;
-#endif

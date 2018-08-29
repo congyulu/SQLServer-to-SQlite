@@ -1,2 +1,28 @@
-﻿  SqlServerConvertToSqlite.vcxproj -> E:\MainProject\source\SqlServerConvertToSqlite\Debug\SqlServerConvertToSqlite.exe
-  SqlServerConvertToSqlite.vcxproj -> E:\MainProject\source\SqlServerConvertToSqlite\Debug\SqlServerConvertToSqlite.pdb (Full PDB)
+﻿  stdafx.cpp
+  SQLServerDBUtil.cpp
+  SqlServerConvertToSqlite.cpp
+d:\myproject\sqlserverconverttosqlite\sqlserver-to-sqlite\sqlserverconverttosqlite\sqlserverconverttosqlite.cpp(21): warning C4018: “<”: 有符号/无符号不匹配
+d:\myproject\sqlserverconverttosqlite\sqlserver-to-sqlite\sqlserverconverttosqlite\sqlserverconverttosqlite.cpp(36): warning C4018: “<”: 有符号/无符号不匹配
+d:\myproject\sqlserverconverttosqlite\sqlserver-to-sqlite\sqlserverconverttosqlite\sqlserverconverttosqlite.cpp(41): warning C4018: “<”: 有符号/无符号不匹配
+d:\myproject\sqlserverconverttosqlite\sqlserver-to-sqlite\sqlserverconverttosqlite\sqlserverconverttosqlite.cpp(79): warning C4018: “<”: 有符号/无符号不匹配
+  SQLServer.cpp
+d:\myproject\sqlserverconverttosqlite\sqlserver-to-sqlite\sqlserverconverttosqlite\sqlserver.cpp(112): warning C4018: “<”: 有符号/无符号不匹配
+d:\myproject\sqlserverconverttosqlite\sqlserver-to-sqlite\sqlserverconverttosqlite\sqlserver.cpp(133): warning C4018: “<”: 有符号/无符号不匹配
+  SQLite.cpp
+d:\myproject\sqlserverconverttosqlite\sqlserver-to-sqlite\sqlserverconverttosqlite\sqlite.cpp(24): warning C4018: “<”: 有符号/无符号不匹配
+d:\myproject\sqlserverconverttosqlite\sqlserver-to-sqlite\sqlserverconverttosqlite\sqlite.cpp(72): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
+d:\myproject\sqlserverconverttosqlite\sqlserver-to-sqlite\sqlserverconverttosqlite\sqlite.cpp(90): warning C4018: “<”: 有符号/无符号不匹配
+  SQLDBUtil.cpp
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\shlobj.h(1151): warning C4091: “typedef ”: 没有声明变量时忽略“tagGPFIDL_FLAGS”的左侧
+  Operation.cpp
+  json_writer.cpp
+  json_value.cpp
+  json_reader.cpp
+  Configs.cpp
+d:\myproject\sqlserverconverttosqlite\sqlserver-to-sqlite\sqlserverconverttosqlite\configs.cpp(22): warning C4101: “s”: 未引用的局部变量
+  正在生成代码...
+    正在创建库 D:\MyProject\SqlServerConvertToSqlite\SQLServer-to-SQlite\\Debug\SqlServerConvertToSqlite.lib 和对象 D:\MyProject\SqlServerConvertToSqlite\SQLServer-to-SQlite\\Debug\SqlServerConvertToSqlite.exp
+LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
+libsql.lib(sqlite3secure.obj) : warning LNK4099: 未找到 PDB“XKW_ELite.SQLite.pdb”(使用“libsql.lib(sqlite3secure.obj)”或在“D:\MyProject\SqlServerConvertToSqlite\SQLServer-to-SQlite\Debug\XKW_ELite.SQLite.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+  SqlServerConvertToSqlite.vcxproj -> D:\MyProject\SqlServerConvertToSqlite\SQLServer-to-SQlite\\Debug\SqlServerConvertToSqlite.exe
+  SqlServerConvertToSqlite.vcxproj -> D:\MyProject\SqlServerConvertToSqlite\SQLServer-to-SQlite\\Debug\SqlServerConvertToSqlite.pdb (Full PDB)

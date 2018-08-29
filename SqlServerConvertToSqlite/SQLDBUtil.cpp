@@ -94,8 +94,7 @@ BOOL SQLDBUtil::ExcuteNonQuery(SQLiteCommand* pCmd)
 	}
 	return pCmd->Excute();
 }
-
-// 查询(回调方式)   
+   
 BOOL SQLDBUtil::ExcuteQuery(LPCTSTR lpSql, QueryCallback pCallBack)
 {
 	if (lpSql == NULL || pCallBack == NULL)
@@ -121,7 +120,6 @@ BOOL SQLDBUtil::ExcuteQuery(LPCTSTR lpSql, QueryCallback pCallBack)
 	return TRUE;
 }
 
-// 查询   
 SQLiteDataReader* SQLDBUtil::ExcuteQuery(LPCTSTR lpSql)
 {
 	if (lpSql == NULL)
@@ -151,8 +149,7 @@ BOOL SQLDBUtil::BeginTransaction()
 	sqlite3_free(errmsg);
 	return TRUE;
 }
-
-// 提交事务   
+  
 BOOL SQLDBUtil::CommitTransaction()
 {
 	char * errmsg = NULL;
@@ -165,7 +162,6 @@ BOOL SQLDBUtil::CommitTransaction()
 	return TRUE;
 }
 
-// 回滚事务   
 BOOL SQLDBUtil::RollbackTransaction()
 {
 	char * errmsg = NULL;
@@ -176,8 +172,7 @@ BOOL SQLDBUtil::RollbackTransaction()
 	}
 	return TRUE;
 }
-
-// 获取上一条错误信息   
+  
 LPCTSTR SQLDBUtil::GetLastErrorMsg()
 {
 #ifdef UNICODE    
@@ -202,7 +197,6 @@ SQLiteDataReader::~SQLiteDataReader()
 	Close();
 }
 
-// 读取一行数据   
 BOOL SQLiteDataReader::Read()
 {
 	if (m_pStmt == NULL)
@@ -215,8 +209,7 @@ BOOL SQLiteDataReader::Read()
 	}
 	return TRUE;
 }
-
-// 关闭Reader，读取结束后调用   
+  
 void SQLiteDataReader::Close()
 {
 	if (m_pStmt)
@@ -226,13 +219,11 @@ void SQLiteDataReader::Close()
 	}
 }
 
-// 总的列数   
 int SQLiteDataReader::ColumnCount(void)
 {
 	return sqlite3_column_count(m_pStmt);
 }
-
-// 获取某列的名称    
+  
 LPCTSTR SQLiteDataReader::GetName(int nCol)
 {
 #ifdef  UNICODE    
@@ -241,14 +232,12 @@ LPCTSTR SQLiteDataReader::GetName(int nCol)
 	return (LPCTSTR)sqlite3_column_name(m_pStmt, nCol);
 #endif   
 }
-
-// 获取某列的数据类型   
+   
 SQLITE_DATATYPE SQLiteDataReader::GetDataType(int nCol)
 {
 	return (SQLITE_DATATYPE)sqlite3_column_type(m_pStmt, nCol);
 }
-
-// 获取某列的值(字符串)   
+  
 #ifdef  UNICODE    
 wchar_t* SQLiteDataReader::GetStringValue(int nCol)
 #else 
@@ -263,26 +252,22 @@ char* SQLiteDataReader::GetStringValue(int nCol)
 	return (char*)sqlite3_column_text(m_pStmt, nCol);
 #endif
 }
-
-// 获取某列的值(整形)   
+  
 int SQLiteDataReader::GetIntValue(int nCol)
 {
 	return sqlite3_column_int(m_pStmt, nCol);
 }
-
-// 获取某列的值(长整形)   
+ 
 long SQLiteDataReader::GetInt64Value(int nCol)
 {
 	return (long)sqlite3_column_int64(m_pStmt, nCol);
 }
-
-// 获取某列的值(浮点形)   
+  
 double SQLiteDataReader::GetFloatValue(int nCol)
 {
 	return sqlite3_column_double(m_pStmt, nCol);
 }
 
-// 获取某列的值(二进制数据)   
 const BYTE* SQLiteDataReader::GetBlobValue(int nCol, int &nLen)
 {
 	nLen = sqlite3_column_bytes(m_pStmt, nCol);

@@ -105,9 +105,10 @@ vector<TableInfo>  SQLServer::GetTableFiled(LPCTSTR tableName)
 	return vec;
 }
 
-vector<string> SQLServer::GetInsertSQLByName(LPCTSTR tableName, vector<TableInfo> vti)
+map<string, vector<ParamInfo>> SQLServer::GetInsertSQLByName(LPCTSTR tableName, vector<TableInfo> vti)
 {
-	vector<string> sqls = vector<string>();
+	Operation oper;
+	map<string, vector<ParamInfo>> sqls = map<string, vector<ParamInfo>>();
 	string colStr;
 	for (int i = 0; i < vti.size(); i++)
 	{
@@ -124,31 +125,38 @@ vector<string> SQLServer::GetInsertSQLByName(LPCTSTR tableName, vector<TableInfo
 		SQLINTEGER rowLen;
 		SQLRowCount(stmt, &rowLen);
 		SQLRETURN s_return;
+		vector<ParamInfo> info = vector<ParamInfo>();
 		while ((s_return = SQLFetch(stmt)) != SQL_NO_DATA)
 		{
 			char sql[1024];
 			SQLCHAR rowValue[512];
 			SQLINTEGER len;
 			string value;
+			int index = 1;
 			for (int i = 0; i < vti.size(); i++)
 			{
 				TableInfo t = vti[i];
 				SQLGetData(stmt, i + 1, SQL_CHAR, rowValue, 512, &len);
 				if (t.FieldType == "int" || t.FieldType == "bigint" || t.FieldType == "decimal"
-					|| t.FieldType == "float")
+					|| t.FieldType == "float" || t.FieldType == "double")
 				{
 					value += (char*)rowValue;
 				}
 				else
 				{
-
-					value += "'" + string((char*)rowValue) + "'";
+					char *szSql = oper.Char_To_UTF8((char*)rowValue);
+					value += "?";
+					ParamInfo pInfo = ParamInfo();
+					pInfo.Index = index;
+					pInfo.Value = szSql;
+					info.push_back(pInfo);
+					index++;
 				}
 				value += ",";
 			}
 			value = value.substr(0, value.length() - 1);
 			sprintf_s(sql, "Insert Into %s (%s) values(%s)", tableName, colStr.data(), value.data());
-			sqls.push_back(sql);
+			sqls.insert(pair<string, vector<ParamInfo>>(sql, info));
 		}
 	}
 	s_db->Close();

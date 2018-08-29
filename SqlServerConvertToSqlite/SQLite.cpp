@@ -83,19 +83,27 @@ bool SQLite::CreateTable(LPCTSTR tableName, vector<TableInfo> vti)
 	}
 }
 
-void SQLite::InsertRow(vector<string> sqls)
+void SQLite::InsertRow(map<string, vector<ParamInfo>> sqls)
 {
 	if (db->Init(SQLITE_LOCAL) && db->Open(SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE))
 	{
-		for (int i = 0; i < sqls.size(); i++)
+		map<string, vector<ParamInfo>>::iterator iter;
+		for (iter = sqls.begin(); iter != sqls.end(); iter++)
 		{
-			LPCTSTR str = sqls[i].data();
-			printf("%s \n", str);
-			if (!db->ExcuteNonQuery(str))
+			SQLiteCommand* cmd = new SQLiteCommand(db, iter->first.data());
+			printf("%s \n", iter->first);
+			vector<ParamInfo> vpi = iter->second;
+			for (int i = 0; i < vpi.size(); i++)
+			{
+				ParamInfo pi = vpi[i];
+				cmd->BindParam(pi.Index, (char*)pi.Value);
+			}
+			if (!db->ExcuteNonQuery(cmd))
 			{
 				printf(db->GetLastErrorMsg());
 				getchar();
 			}
+			delete cmd;
 		}
 	}
 }

@@ -18,13 +18,13 @@ void SQLServerDBUtil::Connection()
 	s_return = SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &s_env);
 	if ((s_return != SQL_SUCCESS) && (s_return != SQL_SUCCESS_WITH_INFO))
 	{
-		cout << "Erro AllocHandle" << s_return << endl;
+		cout << "Error allocHandle" << s_return << endl;
 		return;
 	}
 	s_return = SQLSetEnvAttr(s_env, SQL_ATTR_ODBC_VERSION, (SQLPOINTER)SQL_OV_ODBC3, SQL_IS_INTEGER);
 	if ((s_return != SQL_SUCCESS) && (s_return != SQL_SUCCESS_WITH_INFO))
 	{
-		cout << "Erro AllocHandle" << s_return << endl;
+		cout << "Error allocHandle" << s_return << endl;
 		SQLFreeHandle(SQL_HANDLE_DBC, s_env);
 		s_env = NULL;
 		return;
@@ -32,7 +32,7 @@ void SQLServerDBUtil::Connection()
 	s_return = SQLAllocHandle(SQL_HANDLE_DBC, s_env, &s_dbc);
 	if ((s_return != SQL_SUCCESS) && (s_return != SQL_SUCCESS_WITH_INFO))
 	{
-		cout << "Erro AllocHandle" << s_return << endl;
+		cout << "Error allocHandle" << s_return << endl;
 		SQLFreeHandle(SQL_HANDLE_DBC, s_env);
 		s_env = NULL;
 		return;

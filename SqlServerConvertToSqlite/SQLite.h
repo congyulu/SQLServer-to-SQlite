@@ -1,6 +1,8 @@
 #pragma once
 #include "SQLDBUtil.h"
 #include "TableInfo.h"
+#include <map>
+#include "ParamInfo.h"
 class SQLite
 {
 public:
@@ -8,7 +10,7 @@ public:
 	~SQLite();
 public:
 	bool CreateTable(LPCTSTR tableName, vector<TableInfo> ti);
-	void InsertRow(vector<string> sqls);
+	void InsertRow(map<string, vector<ParamInfo>> sqls);
 private:
 	SQLDBUtil* db;
 };

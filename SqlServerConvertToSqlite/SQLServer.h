@@ -1,6 +1,8 @@
 #pragma once
 #include "SQLServerDBUtil.h"
 #include "TableInfo.h"
+#include "ParamInfo.h"
+#include <map>
 class SQLServer
 {
 public:
@@ -9,7 +11,7 @@ public:
 public:
 	vector<string> GetAllTable();
 	vector<TableInfo>  GetTableFiled(LPCTSTR tableName);
-	vector<string> GetInsertSQLByName(LPCTSTR tableName, vector<TableInfo> ti);
+	map<string, vector<ParamInfo>> GetInsertSQLByName(LPCTSTR tableName, vector<TableInfo> ti);
 private:
 	SQLServerDBUtil* s_db = NULL;
 };

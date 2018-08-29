@@ -1,4 +1,6 @@
-// SqlServerConvertToSqlite.cpp : 定义控制台应用程序的入口点。
+// 
+// Author: Congyu Lu
+// E-mail:759728758@qq.com
 //
 
 #include "stdafx.h"
@@ -71,7 +73,7 @@ ConfigInfo GetConfig()
 		Json::Value cs = info->Get("Config.ConnectionString", "");
 		if (!cs.isNull())
 		{
-			printf("连接字符串:");
+			printf("ConnectionString:");
 			if (cs.isArray())
 			{
 				for (int i = 0; i < cs.size(); i++)
@@ -93,7 +95,7 @@ ConfigInfo GetConfig()
 		Json::Value name = info->Get("Config.SQLiteName", "");
 		if (!name.isNull())
 		{
-			printf("SQLite数据库名称:");
+			printf("SQLite DB Name:");
 			printf("%s \n", name.asCString());
 			config.SQLiteName = name.asString();
 		}
