@@ -1,0 +1,10 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (sqlite3.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  dllmain.cpp
+  stdafx.cpp
+  sqlite3.cpp
+  正在生成代码...
+  sqlite3secure.c
+e:\mainproject\source\xkw_elite\xkw_esqlite\sqlite3.c(114209): warning C4113: “int (__cdecl *)(const void *,sqlite3 **,unsigned int)”和“int (__cdecl *)(const void *,sqlite3 **)”的参数列表不同
+    正在创建库 E:\MainProject\source\XKW_ELite\Bin\libsql.lib 和对象 E:\MainProject\source\XKW_ELite\Bin\libsql.exp
+  sqlite3.vcxproj -> E:\MainProject\source\XKW_ELite\Bin\libsql.dll
+  sqlite3.vcxproj -> E:\MainProject\source\XKW_ELite\Bin\libsql.pdb (Full PDB)
