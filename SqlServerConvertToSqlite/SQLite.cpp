@@ -28,14 +28,10 @@ bool SQLite::CreateTable(LPCTSTR tableName, vector<TableInfo> vti)
 			if (ti.FieldType == "int")
 			{
 				t_sql += "INT";
-			}
-			else if (ti.FieldType == "nvarchar")
-			{
-				t_sql += "TEXT";
-			}
-			else if (ti.FieldType == "varchar")
-			{
-				t_sql += "TEXT";
+				if (ti.Primary)
+				{
+					t_sql += " Primary key";
+				}
 			}
 			else if (ti.FieldType == "decimal")
 			{
@@ -48,6 +44,10 @@ bool SQLite::CreateTable(LPCTSTR tableName, vector<TableInfo> vti)
 			else if (ti.FieldType == "bigint")
 			{
 				t_sql += "BIGINT";
+				if (ti.Primary)
+				{
+					t_sql += " Primary key";
+				}
 			}
 			else if (ti.FieldType == "bit")
 			{
@@ -57,10 +57,7 @@ bool SQLite::CreateTable(LPCTSTR tableName, vector<TableInfo> vti)
 			{
 				t_sql += "TEXT";
 			}
-			if (ti.Primary)
-			{
-				t_sql += " Primary key";
-			}
+
 			t_sql += ",";
 		}
 		if (t_sql.length() > 0)
@@ -83,16 +80,16 @@ bool SQLite::CreateTable(LPCTSTR tableName, vector<TableInfo> vti)
 	}
 }
 
-void SQLite::InsertRow(map<string, vector<ParamInfo>> sqls)
+void SQLite::InsertRow(vector<SQLInfo> sqls)
 {
 	if (db->Init(SQLITE_LOCAL) && db->Open(SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE))
 	{
-		map<string, vector<ParamInfo>>::iterator iter;
-		for (iter = sqls.begin(); iter != sqls.end(); iter++)
+		for (int i = 0; i < sqls.size(); i++)
 		{
-			SQLiteCommand* cmd = new SQLiteCommand(db, iter->first.data());
-			printf("%s \n", iter->first);
-			vector<ParamInfo> vpi = iter->second;
+			SQLInfo si = sqls[i];
+			SQLiteCommand* cmd = new SQLiteCommand(db, si.SQL.data());
+			printf("%s \n", si.SQL);
+			vector<ParamInfo> vpi = si.Values;
 			for (int i = 0; i < vpi.size(); i++)
 			{
 				ParamInfo pi = vpi[i];
@@ -103,6 +100,7 @@ void SQLite::InsertRow(map<string, vector<ParamInfo>> sqls)
 				printf(db->GetLastErrorMsg());
 				getchar();
 			}
+			cmd->Clear();
 			delete cmd;
 		}
 	}

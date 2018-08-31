@@ -1,14 +1,15 @@
-﻿  SQLDBUtil.cpp
-C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include\ShlObj.h(1151): warning C4091: “typedef ”: 没有声明变量时忽略“tagGPFIDL_FLAGS”的左侧
-  SQLServer.cpp
-SQLServer.cpp(113): warning C4018: “<”: 有符号/无符号不匹配
-SQLServer.cpp(136): warning C4018: “<”: 有符号/无符号不匹配
+﻿  SQLite.cpp
+SQLite.cpp(24): warning C4018: “<”: 有符号/无符号不匹配
+SQLite.cpp(69): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
+SQLite.cpp(87): warning C4018: “<”: 有符号/无符号不匹配
+SQLite.cpp(93): warning C4018: “<”: 有符号/无符号不匹配
+SQLite.cpp(91): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“std::string”
     正在创建库 D:\MyProject\SqlServerConvertToSqlite\SQLServer-to-SQlite\\Release\SqlServerConvertToSqlite.lib 和对象 D:\MyProject\SqlServerConvertToSqlite\SQLServer-to-SQlite\\Release\SqlServerConvertToSqlite.exp
 LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
   正在生成代码
-  2 of 1290 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  2 of 1229 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    23 functions had inline decision re-evaluated but remain unchanged
+    26 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
 libsql.lib(sqlite3secure.obj) : warning LNK4099: 未找到 PDB“XKW_ELite.SQLite.pdb”(使用“libsql.lib(sqlite3secure.obj)”或在“D:\MyProject\SqlServerConvertToSqlite\SQLServer-to-SQlite\Release\XKW_ELite.SQLite.pdb”中寻找)；正在链接对象，如同没有调试信息一样
   SqlServerConvertToSqlite.vcxproj -> D:\MyProject\SqlServerConvertToSqlite\SQLServer-to-SQlite\\Release\SqlServerConvertToSqlite.exe

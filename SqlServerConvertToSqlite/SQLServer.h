@@ -11,7 +11,7 @@ public:
 public:
 	vector<string> GetAllTable();
 	vector<TableInfo>  GetTableFiled(LPCTSTR tableName);
-	map<string, vector<ParamInfo>> GetInsertSQLByName(LPCTSTR tableName, vector<TableInfo> ti);
+	vector<SQLInfo> GetInsertSQLByName(LPCTSTR tableName, vector<TableInfo> ti);
 private:
 	SQLServerDBUtil* s_db = NULL;
 };

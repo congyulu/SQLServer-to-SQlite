@@ -10,7 +10,7 @@ public:
 	~SQLite();
 public:
 	bool CreateTable(LPCTSTR tableName, vector<TableInfo> ti);
-	void InsertRow(map<string, vector<ParamInfo>> sqls);
+	void InsertRow(vector<SQLInfo> sqls);
 private:
 	SQLDBUtil* db;
 };

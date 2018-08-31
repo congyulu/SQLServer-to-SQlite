@@ -62,7 +62,7 @@ vector<TableInfo>  SQLServer::GetTableFiled(LPCTSTR tableName)
 		on a.xusertype = b.xusertype \
 		inner join sys.sysobjects d \
 		on a.id = d.id  and d.xtype = 'U' and  d.name<>'dtproperties' \
-	    where d.name = '%s' ", tableName);
+	    where d.name ='%s' ", tableName);
 	s_db->Connection();
 	SQLCHAR name[20], type[20];
 	SQLINTEGER len, isNULL, primary;
@@ -105,10 +105,10 @@ vector<TableInfo>  SQLServer::GetTableFiled(LPCTSTR tableName)
 	return vec;
 }
 
-map<string, vector<ParamInfo>> SQLServer::GetInsertSQLByName(LPCTSTR tableName, vector<TableInfo> vti)
+vector<SQLInfo> SQLServer::GetInsertSQLByName(LPCTSTR tableName, vector<TableInfo> vti)
 {
 	Operation oper;
-	map<string, vector<ParamInfo>> sqls = map<string, vector<ParamInfo>>();
+	vector<SQLInfo> sqls = vector<SQLInfo>();
 	string colStr;
 	for (int i = 0; i < vti.size(); i++)
 	{
@@ -122,12 +122,10 @@ map<string, vector<ParamInfo>> SQLServer::GetInsertSQLByName(LPCTSTR tableName, 
 	SQLHSTMT stmt = s_db->ExecuteSQL(sql);
 	if (stmt != NULL)
 	{
-		SQLINTEGER rowLen;
-		SQLRowCount(stmt, &rowLen);
 		SQLRETURN s_return;
-		vector<ParamInfo> info = vector<ParamInfo>();
 		while ((s_return = SQLFetch(stmt)) != SQL_NO_DATA)
 		{
+			vector<ParamInfo> info = vector<ParamInfo>();
 			char sql[1024];
 			SQLCHAR rowValue[512];
 			SQLINTEGER len;
@@ -156,7 +154,7 @@ map<string, vector<ParamInfo>> SQLServer::GetInsertSQLByName(LPCTSTR tableName, 
 			}
 			value = value.substr(0, value.length() - 1);
 			sprintf_s(sql, "Insert Into %s (%s) values(%s)", tableName, colStr.data(), value.data());
-			sqls.insert(pair<string, vector<ParamInfo>>(sql, info));
+			sqls.push_back(SQLInfo(sql,info));
 		}
 	}
 	s_db->Close();
