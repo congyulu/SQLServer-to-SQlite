@@ -3,6 +3,14 @@
 SQLite::SQLite(LPCTSTR sqliteName, LPCTSTR sqlitePWD)
 {
 	db = new SQLDBUtil(sqliteName, sqlitePWD);
+	if (db->Init(SQLITE_LOCAL) && db->Open(SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE))
+	{
+		b_canProcess = true;
+	}
+	else
+	{
+		b_canProcess = false;
+	}
 }
 
 
@@ -17,7 +25,7 @@ SQLite::~SQLite()
 
 bool SQLite::CreateTable(LPCTSTR tableName, vector<TableInfo> vti)
 {
-	if (db->Init(SQLITE_LOCAL) && db->Open(SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE))
+	if (b_canProcess)
 	{
 		char sql[1024];
 		string t_sql;
@@ -72,7 +80,6 @@ bool SQLite::CreateTable(LPCTSTR tableName, vector<TableInfo> vti)
 		{
 			return false;
 		}
-
 	}
 	else
 	{
@@ -82,7 +89,7 @@ bool SQLite::CreateTable(LPCTSTR tableName, vector<TableInfo> vti)
 
 void SQLite::InsertRow(vector<SQLInfo> sqls)
 {
-	if (db->Init(SQLITE_LOCAL) && db->Open(SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE))
+	if (b_canProcess)
 	{
 		for (int i = 0; i < sqls.size(); i++)
 		{

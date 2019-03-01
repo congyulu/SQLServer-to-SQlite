@@ -53,6 +53,7 @@ BOOL SQLDBUtil::Open(int sqliteType)
 	}
 	if (s_pwd&&strlen(s_pwd) > 0)
 	{
+		sqlite3_key(w_db, s_pwd, strlen(s_pwd));
 		sqlite3_rekey(w_db, s_pwd, strlen(s_pwd));
 	}
 	return TRUE;

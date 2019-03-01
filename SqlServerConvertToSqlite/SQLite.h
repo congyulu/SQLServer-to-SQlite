@@ -12,6 +12,7 @@ public:
 	bool CreateTable(LPCTSTR tableName, vector<TableInfo> ti);
 	void InsertRow(vector<SQLInfo> sqls);
 private:
+	bool b_canProcess;
 	SQLDBUtil* db;
 };
 
