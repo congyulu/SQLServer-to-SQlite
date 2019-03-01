@@ -10,7 +10,7 @@
 #include "ConfigInfo.h"
 //"SERVER=.\\SQLEXPRESS;DATABASE=NewResource;UID=sa;PWD=123456"
 //"local.db"
-void Process(LPCTSTR str , LPCTSTR sqliteName , LPCTSTR sqlitePWD = "");
+void Process(LPCTSTR str, LPCTSTR sqliteName, LPCTSTR sqlitePWD = "");
 ConfigInfo GetConfig();
 int main()
 {
@@ -20,7 +20,7 @@ int main()
 	printf("Running\n");
 	for (int i = 0; i < config.ConnectionStrings.size(); i++)
 	{
-		Process(config.ConnectionStrings[i].data(), config.SQLiteName.data());
+		Process(config.ConnectionStrings[i].data(), config.SQLiteName.data(),config.SQLitePWD.data());
 	}
 	printf("Finished");
 	getchar();
@@ -71,7 +71,7 @@ ConfigInfo GetConfig()
 	if (info->FromFile(exeFullPath))
 	{
 		Json::Value cs = info->Get("Config.ConnectionString", "");
-		if (!cs.isNull())
+		if (!cs.empty())
 		{
 			printf("ConnectionString:");
 			if (cs.isArray())
@@ -93,23 +93,33 @@ ConfigInfo GetConfig()
 			info->Set("Config.ConnectionString", "");
 		}
 		Json::Value name = info->Get("Config.SQLiteName", "");
-		if (!name.isNull())
+		if (!name.empty())
 		{
-			printf("SQLite DB Name:");
-			printf("%s \n", name.asCString());
+			printf("SQLite DB Name:%s \n", name.asCString());
 			config.SQLiteName = name.asString();
 		}
 		else
 		{
 			info->Set("Config.SQLiteName", "");
 		}
+		Json::Value pwd = info->Get("Config.SQLitePWD", "");
+		if (!pwd.empty())
+		{
+			printf("SQLite DB PWD:%s \n",pwd.asCString());
+			config.SQLitePWD = pwd.asString();
+		}
+		else
+		{
+			info->Set("Config.SQLitePWD","");
+		}
 	}
 	else
 	{
 		info->Set("Config.ConnectionString", "");
 		info->Set("Config.SQLiteName", "");
-		info->ToFile(exeFullPath);
+		info->Set("Config.SQLitePWD", "");
 	}
+	info->ToFile(exeFullPath);
 	return config;
 }
 

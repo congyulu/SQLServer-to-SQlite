@@ -51,7 +51,10 @@ BOOL SQLDBUtil::Open(int sqliteType)
 		MessageBox(NULL, GetLastErrorMsg(), "´íÎó", 0);
 		return FALSE;
 	}
-	sqlite3_key(w_db, s_pwd, strlen(s_pwd));
+	if (s_pwd&&strlen(s_pwd) > 0)
+	{
+		sqlite3_rekey(w_db, s_pwd, strlen(s_pwd));
+	}
 	return TRUE;
 }
 
@@ -94,7 +97,7 @@ BOOL SQLDBUtil::ExcuteNonQuery(SQLiteCommand* pCmd)
 	}
 	return pCmd->Excute();
 }
-   
+
 BOOL SQLDBUtil::ExcuteQuery(LPCTSTR lpSql, QueryCallback pCallBack)
 {
 	if (lpSql == NULL || pCallBack == NULL)
@@ -149,7 +152,7 @@ BOOL SQLDBUtil::BeginTransaction()
 	sqlite3_free(errmsg);
 	return TRUE;
 }
-  
+
 BOOL SQLDBUtil::CommitTransaction()
 {
 	char * errmsg = NULL;
@@ -172,7 +175,7 @@ BOOL SQLDBUtil::RollbackTransaction()
 	}
 	return TRUE;
 }
-  
+
 LPCTSTR SQLDBUtil::GetLastErrorMsg()
 {
 #ifdef UNICODE    
@@ -209,7 +212,7 @@ BOOL SQLiteDataReader::Read()
 	}
 	return TRUE;
 }
-  
+
 void SQLiteDataReader::Close()
 {
 	if (m_pStmt)
@@ -223,7 +226,7 @@ int SQLiteDataReader::ColumnCount(void)
 {
 	return sqlite3_column_count(m_pStmt);
 }
-  
+
 LPCTSTR SQLiteDataReader::GetName(int nCol)
 {
 #ifdef  UNICODE    
@@ -232,12 +235,12 @@ LPCTSTR SQLiteDataReader::GetName(int nCol)
 	return (LPCTSTR)sqlite3_column_name(m_pStmt, nCol);
 #endif   
 }
-   
+
 SQLITE_DATATYPE SQLiteDataReader::GetDataType(int nCol)
 {
 	return (SQLITE_DATATYPE)sqlite3_column_type(m_pStmt, nCol);
 }
-  
+
 #ifdef  UNICODE    
 wchar_t* SQLiteDataReader::GetStringValue(int nCol)
 #else 
@@ -252,17 +255,17 @@ char* SQLiteDataReader::GetStringValue(int nCol)
 	return (char*)sqlite3_column_text(m_pStmt, nCol);
 #endif
 }
-  
+
 int SQLiteDataReader::GetIntValue(int nCol)
 {
 	return sqlite3_column_int(m_pStmt, nCol);
 }
- 
+
 long SQLiteDataReader::GetInt64Value(int nCol)
 {
 	return (long)sqlite3_column_int64(m_pStmt, nCol);
 }
-  
+
 double SQLiteDataReader::GetFloatValue(int nCol)
 {
 	return sqlite3_column_double(m_pStmt, nCol);

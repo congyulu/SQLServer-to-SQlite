@@ -4,6 +4,7 @@ struct ConfigInfo
 {
 	vector<string> ConnectionStrings;
 	string SQLiteName;
+	string SQLitePWD;
 	ConfigInfo()
 	{
 		ConnectionStrings = vector<string>();

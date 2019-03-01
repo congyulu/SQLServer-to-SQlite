@@ -32,7 +32,7 @@ bool Config::FromFile(const std::string& sFile)
 	fclose(file);
 
 	bool b = FromString(buffer);
-	delete buffer;
+	delete[] buffer;
 	buffer = NULL;
 
 	return b;
